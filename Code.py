@@ -30,11 +30,22 @@ while True:
     safetyDistance = distance
 
 
-    if safetyDistance <= 5:
+    if 5<= safetyDistance <= 7:
         print(safetyDistance)
         GPIO.output(buzzer, GPIO.HIGH)
         print("Buzzer is now On")
-
+    elif safetyDistance < 5:
+        Print("OBJECT IS REALLY CLOSE")
+        print(safetyDistance)
+        GPIO.output(buzzer, GPIO.HIGH)
+        time.sleep(0.5)
+        GPIO.output(buzzer, GPIO.LOW)
+        time.sleep(0.5)
+        GPIO.output(buzzer, GPIO.HIGH)
+        time.sleep(0.5)
+        GPIO.output(buzzer, GPIO.LOW)
+        time.sleep(0.5)
+        GPIO.output(buzzer, GPIO.HIGH)
     else:
         print("Distance in cm: ")
         print(safetyDistance)
