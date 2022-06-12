@@ -10,6 +10,9 @@ print(" Now beggingin the Distance Measurements")
 GPIO.setup(TRIG,GPIO.OUT)
 GPIO.setup(ECHO,GPIO.IN)
 GPIO.setup(buzzer,GPIO.OUT)
+Buzzerlow = GPIO.PWM(buzzer, 1)
+i = 0
+
 
 while True:
     GPIO.output(TRIG, False)
@@ -30,25 +33,23 @@ while True:
     safetyDistance = distance
 
 
-    if 5<= safetyDistance <= 7:
+    if 2<= safetyDistance <= 7:
         print(safetyDistance)
-        GPIO.output(buzzer, GPIO.HIGH)
         print("Buzzer is now On")
-    elif safetyDistance < 5:
-        Print("OBJECT IS REALLY CLOSE")
+        Buzzerlow.ChangeFrequency(50)
+        Buzzerlow.start(50)
+        
+
+        
+    elif safetyDistance < 2:
+        print("OBJECT IS REALLY CLOSE")
         print(safetyDistance)
-        GPIO.output(buzzer, GPIO.HIGH)
-        time.sleep(0.5)
-        GPIO.output(buzzer, GPIO.LOW)
-        time.sleep(0.5)
-        GPIO.output(buzzer, GPIO.HIGH)
-        time.sleep(0.5)
-        GPIO.output(buzzer, GPIO.LOW)
-        time.sleep(0.5)
-        GPIO.output(buzzer, GPIO.HIGH)
+        Buzzerlow.ChangeFrequency(100)
+        Buzzerlow.start(50)
+        
     else:
         print("Distance in cm: ")
         print(safetyDistance)
         
         print("Buzzer is now Off")
-        GPIO.output(buzzer, GPIO.LOW)
+        Buzzerlow.stop()
